@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -57,35 +59,15 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
+    //room
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
 
-//    implementation("androidx.recyclerview:recyclerview:1.3.2")
-//    // For control over item selection of both touch and mouse driven selection
-//    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
-
-//    implementation ("androidx.appcompat:appcompat:1.4.1")
-//    implementation ("androidx.recyclerview:recyclerview:1.2.1")
-
-
-//    implementation ("androidx.core:core:1.14.0")
-//    androidTestImplementation ("androidx.core:core-ktx:1.14.0")
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
 
 }
-
-//dependencies {
-//    implementation("androidx.core:core-ktx:1.14.0") // Latest compatible for SDK 34
-//    implementation("androidx.appcompat:appcompat:1.4.1") // Stable and compatible with SDK 34
-//    implementation("com.google.android.material:material:1.4.0") // Material design components
-//    implementation("androidx.activity:activity-ktx:1.4.0") // Activity library
-//    implementation("androidx.constraintlayout:constraintlayout:2.1.4") // ConstraintLayout
-//
-//    // Testing dependencies
-//    testImplementation("junit:junit:4.13.2") // Unit testing
-//    androidTestImplementation("androidx.test.ext:junit:1.1.3") // AndroidX JUnit
-//    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0") // Espresso for UI tests
-//
-//    // RecyclerView dependencies
-//    implementation("androidx.recyclerview:recyclerview:1.2.1") // Stable version for RecyclerView
-//    implementation("androidx.recyclerview:recyclerview-selection:1.0.0") // For item selection control
-//
-//}
