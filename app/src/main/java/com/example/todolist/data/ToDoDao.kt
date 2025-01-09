@@ -10,16 +10,16 @@ import androidx.room.Query
 interface ToDoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTodo(toDo: ToDo)
+    suspend fun insertTodo(toDoEntity: ToDoEntity)
 
     @Delete()
-    suspend fun deleteTodo(toDo: ToDo)
+    suspend fun deleteTodo(toDoEntity: ToDoEntity)
 
     @Query("DELETE FROM todos WHERE id=:id")
     suspend fun delete(id:Int)
 
     @Query("SELECT * FROM todos")
-    suspend fun getAllToDos():List<ToDo>
+    suspend fun getAllToDos():List<ToDoEntity>
 
     @Query("UPDATE todos SET isChecked = NOT isChecked WHERE id = :id")
     suspend fun toggleIsChecked(id: Int)

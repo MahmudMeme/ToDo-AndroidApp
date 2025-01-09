@@ -1,11 +1,11 @@
 package com.example.todolist.data
 
 class RoomDataSource(private val toDoDao: ToDoDao) : LocalToDoDataSource {
-    override suspend fun insertToo(toDo: ToDo) {
-        toDoDao.insertTodo(toDo)
+    override suspend fun insertToo(toDoEntity: ToDoEntity) {
+        toDoDao.insertTodo(toDoEntity)
     }
 
-    override suspend fun saveAll(list: List<ToDo>) {
+    override suspend fun saveAll(list: List<ToDoEntity>) {
         list.forEach { it -> toDoDao.insertTodo(it) }
     }
 
@@ -13,7 +13,7 @@ class RoomDataSource(private val toDoDao: ToDoDao) : LocalToDoDataSource {
         toDoDao.delete(id)
     }
 
-    override suspend fun getAll(): List<ToDo> {
+    override suspend fun getAll(): List<ToDoEntity> {
         return toDoDao.getAllToDos()
     }
 
@@ -21,7 +21,7 @@ class RoomDataSource(private val toDoDao: ToDoDao) : LocalToDoDataSource {
         toDoDao.toggleIsChecked(id)
     }
 
-    override suspend fun deleteAllChecked(list: List<ToDo>) {
+    override suspend fun deleteAllChecked(list: List<ToDoEntity>) {
         for (todo in list) {
             if (todo.isChecked) {
                 toDoDao.deleteTodo(todo)

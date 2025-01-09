@@ -5,14 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.todolist.adapter.ToDoAdapter
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.viewModel.ToDoViewModel
 import com.example.todolist.viewModel.ToDoViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -36,28 +36,25 @@ class MainActivity : AppCompatActivity() {
 
         val toDoAdapter = ToDoAdapter()
         toDoAdapter.setOnTodoCheckedChangeListener { position, isChecked ->
-            lifecycleScope.launch {
-                viewModel.changeTodoChecked(position, isChecked)
-            }
+            viewModel.changeTodoChecked(position, isChecked)
         }
         binding.rvTodoList.adapter = toDoAdapter
 
         binding.btnAdd.setOnClickListener {
             val todoTitle = binding.etTodoList.text.toString()
-            CoroutineScope(Dispatchers.Main).launch {
-                viewModel.addToDo(todoTitle)
-                binding.etTodoList.text.clear()
-            }
-
+            viewModel.addToDo(todoTitle)
+            binding.etTodoList.text.clear()
         }
         binding.btnDelete.setOnClickListener {
-            CoroutineScope(Dispatchers.Default).launch {
-                viewModel.deleteCheckedToDos()
-            }
+            viewModel.deleteCheckedToDos()
         }
 
-        viewModel.uiState.observe(this) { state ->
-            toDoAdapter.setItems(state.toDoList)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    toDoAdapter.setItems(state.toDoEntityList)
+                }
+            }
         }
     }
 }

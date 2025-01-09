@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.data.ToDo
+import com.example.todolist.data.ToDoEntity
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import com.example.todolist.databinding.TodoitemBinding
 
 
 class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
-    private val data = mutableListOf<ToDo>()
+    private val data = mutableListOf<ToDoEntity>()
     private var onTodoCheckedChangeListener: ((position: Int, isChecked: Boolean) -> Unit)? = null
 
     fun setOnTodoCheckedChangeListener(listener: (position: Int, isChecked: Boolean) -> Unit) {
@@ -43,7 +43,7 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<ToDo>) {
+    fun setItems(items: List<ToDoEntity>) {
         data.clear()
         data.addAll(items)
         notifyDataSetChanged()
@@ -51,7 +51,7 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
 
     class ToDoViewHolder(private val binding: TodoitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindItem(item: ToDo) {
+        fun bindItem(item: ToDoEntity) {
             with(binding.tvtodoItem) {
                 text = item.title
                 paintFlags = if (item.isChecked) {

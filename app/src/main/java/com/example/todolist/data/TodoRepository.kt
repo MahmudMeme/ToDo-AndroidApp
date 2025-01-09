@@ -2,12 +2,12 @@ package com.example.todolist.data
 
 class TodoRepository(private val localToDoDataSource: LocalToDoDataSource) {
 
-    suspend fun getAllToDos(): List<ToDo> {
+    suspend fun getAllToDos(): List<ToDoEntity> {
         return localToDoDataSource.getAll()
     }
 
-    suspend fun insertToDo(toDo: ToDo) {
-        localToDoDataSource.insertToo(toDo)
+    suspend fun insertToDo(toDoEntity: ToDoEntity) {
+        localToDoDataSource.insertToo(toDoEntity)
     }
 
     suspend fun deleteTodo(id: Int) {
@@ -18,11 +18,11 @@ class TodoRepository(private val localToDoDataSource: LocalToDoDataSource) {
         localToDoDataSource.toggleChecked(id)
     }
 
-    suspend fun saveAll(list: List<ToDo>) {
+    suspend fun saveAll(list: List<ToDoEntity>) {
         localToDoDataSource.saveAll(list)
     }
 
-    suspend fun deleteALLChecked(list: List<ToDo>) {
+    suspend fun deleteALLChecked(list: List<ToDoEntity>) {
         localToDoDataSource.deleteAllChecked(list)
     }
 }
