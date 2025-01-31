@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class ToDoEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
-    var isChecked: Boolean = false
+    var isChecked: Boolean = false,
+    var isPinned : Boolean=false
 )

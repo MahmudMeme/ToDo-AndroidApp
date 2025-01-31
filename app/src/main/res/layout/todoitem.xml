@@ -6,6 +6,19 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     >
+    <ImageView
+        android:id="@+id/imageViewPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flag_24dp_e8eaed"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <TextView
         android:id="@+id/tvtodoItem"
@@ -16,7 +29,7 @@
         android:paddingEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cbtodoItem"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewPin"
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox

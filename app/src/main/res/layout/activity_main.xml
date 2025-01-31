@@ -12,19 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/etTodoList"
+        app:layout_constraintBottom_toTopOf="@id/btnAdd"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/etTodoList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
-        android:hint="add todo item"
-        app:layout_constraintBottom_toTopOf="@id/btnAdd" />
 
     <Button
         android:id="@+id/btnDelete"

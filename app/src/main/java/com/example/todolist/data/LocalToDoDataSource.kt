@@ -6,5 +6,6 @@ interface LocalToDoDataSource {
     suspend fun delete(id: Int)
     suspend fun getAll(): List<ToDoEntity>
     suspend fun toggleChecked(id: Int)
+    suspend fun togglePinned(id: Int)
     suspend fun deleteAllChecked(list: List<ToDoEntity>)
 }

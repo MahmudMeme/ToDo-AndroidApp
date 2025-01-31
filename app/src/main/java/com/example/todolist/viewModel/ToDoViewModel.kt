@@ -56,6 +56,23 @@ class ToDoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
         }
     }
 
+    fun changeToDoPinned(position: Int) {
+        var id : Int=0
+        viewModelScope.launch {
+            val newList = _uiState.value.toDoEntityList.mapIndexed { index, toDo ->
+                if (index == position) {
+                    id=toDo.id;
+                    toDo.copy(isPinned = !toDo.isPinned)
+                } else {
+                    toDo
+                }
+            }
+//            todoRepository.saveAll(newList)
+            todoRepository.togglePinned(id)
+            loadData()
+        }
+    }
+
     private suspend fun loadData() {
         val list = todoRepository.getAllToDos()
         _uiState.update { state ->

@@ -17,6 +17,9 @@ class TodoRepository(private val localToDoDataSource: LocalToDoDataSource) {
     suspend fun toggleChecked(id: Int) {
         localToDoDataSource.toggleChecked(id)
     }
+    suspend fun togglePinned(id: Int){
+        localToDoDataSource.togglePinned(id)
+    }
 
     suspend fun saveAll(list: List<ToDoEntity>) {
         localToDoDataSource.saveAll(list)

@@ -21,6 +21,10 @@ class RoomDataSource(private val toDoDao: ToDoDao) : LocalToDoDataSource {
         toDoDao.toggleIsChecked(id)
     }
 
+    override suspend fun togglePinned(id: Int) {
+        toDoDao.toggleIsPinned(id)
+    }
+
     override suspend fun deleteAllChecked(list: List<ToDoEntity>) {
         for (todo in list) {
             if (todo.isChecked) {

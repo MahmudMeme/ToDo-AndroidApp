@@ -18,9 +18,12 @@ interface ToDoDao {
     @Query("DELETE FROM todos WHERE id=:id")
     suspend fun delete(id:Int)
 
-    @Query("SELECT * FROM todos")
+    @Query("SELECT * FROM todos ORDER BY isPinned DESC")
     suspend fun getAllToDos():List<ToDoEntity>
 
     @Query("UPDATE todos SET isChecked = NOT isChecked WHERE id = :id")
     suspend fun toggleIsChecked(id: Int)
+
+    @Query("UPDATE todos set isPinned = NOT isPinned WHERE id= :id")
+    suspend fun toggleIsPinned(id: Int)
 }

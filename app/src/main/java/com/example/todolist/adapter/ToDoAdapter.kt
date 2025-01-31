@@ -6,15 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.data.ToDoEntity
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+import android.view.View
 import com.example.todolist.databinding.TodoitemBinding
 
 
 class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
     private val data = mutableListOf<ToDoEntity>()
     private var onTodoCheckedChangeListener: ((position: Int, isChecked: Boolean) -> Unit)? = null
+    private var onTodoPinClickListener: ((position: Int) -> Unit)? = null
 
     fun setOnTodoCheckedChangeListener(listener: (position: Int, isChecked: Boolean) -> Unit) {
         this.onTodoCheckedChangeListener = listener
+    }
+    fun setOnTodoPinClickListener(listener: (position: Int) -> Unit) {
+        this.onTodoPinClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder {
@@ -29,6 +34,9 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
                 toDoViewHolder.bindingAdapterPosition,
                 isChecked
             )
+        }
+        binding.root.setOnClickListener {
+            this.onTodoPinClickListener?.invoke(toDoViewHolder.bindingAdapterPosition)
         }
         return toDoViewHolder
     }
@@ -61,6 +69,8 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
                 }
             }
             binding.cbtodoItem.isChecked = item.isChecked
+            binding.imageViewPin.visibility = if (item.isPinned) View.VISIBLE else View.GONE
+
         }
     }
 }
