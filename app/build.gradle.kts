@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -43,7 +44,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     //implementation(libs.androidx.core.ktx)
     //implementation(libs.androidx.core.ktx.v1131)
     //implementation("androidx.core:core-ktx:1.13.1")
@@ -70,4 +72,8 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
 
+}
+
+kapt {
+    correctErrorTypes = true
 }

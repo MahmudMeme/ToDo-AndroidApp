@@ -2,18 +2,25 @@ package com.example.todolist.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.todolist.domain.InsertToDoUseCase
 import com.example.todolist.data.ToDoEntity
 import com.example.todolist.data.TodoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class ToDoStateUi(
     val toDoEntityList: List<ToDoEntity> = emptyList(),
 )
 
-class ToDoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
+@HiltViewModel
+class ToDoViewModel @Inject constructor(
+    private val todoRepository: TodoRepository,
+    private val insertToDoUseCase: InsertToDoUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ToDoStateUi())
     val uiState = _uiState.asStateFlow()
@@ -26,11 +33,8 @@ class ToDoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
     }
 
     fun addToDo(toDo: String) {
-        if (toDo.isBlank()) return
-
         viewModelScope.launch {
-            val newTodo = ToDoEntity(0, toDo)
-            todoRepository.insertToDo(newTodo)
+            insertToDoUseCase(toDo)
             loadData()
         }
     }
@@ -57,11 +61,11 @@ class ToDoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
     }
 
     fun changeToDoPinned(position: Int) {
-        var id : Int=0
+        var id: Int = 0
         viewModelScope.launch {
             val newList = _uiState.value.toDoEntityList.mapIndexed { index, toDo ->
                 if (index == position) {
-                    id=toDo.id;
+                    id = toDo.id;
                     toDo.copy(isPinned = !toDo.isPinned)
                 } else {
                     toDo

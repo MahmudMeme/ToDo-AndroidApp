@@ -1,6 +1,8 @@
 package com.example.todolist.data
 
-class RoomDataSource(private val toDoDao: ToDoDao) : LocalToDoDataSource {
+import javax.inject.Inject
+
+class RoomDataSource @Inject constructor(private val toDoDao: ToDoDao) : LocalToDoDataSource {
     override suspend fun insertToo(toDoEntity: ToDoEntity) {
         toDoDao.insertTodo(toDoEntity)
     }

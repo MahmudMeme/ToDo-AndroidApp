@@ -1,6 +1,10 @@
 package com.example.todolist.data
 
-class TodoRepository(private val localToDoDataSource: LocalToDoDataSource) {
+import javax.inject.Inject
+
+class TodoRepository @Inject constructor(
+    private val localToDoDataSource: LocalToDoDataSource
+) {
 
     suspend fun getAllToDos(): List<ToDoEntity> {
         return localToDoDataSource.getAll()
@@ -17,7 +21,8 @@ class TodoRepository(private val localToDoDataSource: LocalToDoDataSource) {
     suspend fun toggleChecked(id: Int) {
         localToDoDataSource.toggleChecked(id)
     }
-    suspend fun togglePinned(id: Int){
+
+    suspend fun togglePinned(id: Int) {
         localToDoDataSource.togglePinned(id)
     }
 
