@@ -2,9 +2,9 @@ package com.example.todolist.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todolist.domain.InsertToDoUseCase
 import com.example.todolist.data.ToDoEntity
 import com.example.todolist.data.TodoRepository
+import com.example.todolist.domain.InsertToDoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +28,7 @@ class ToDoViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            demoInsert()
             loadData()
         }
     }
@@ -81,6 +82,13 @@ class ToDoViewModel @Inject constructor(
         val list = todoRepository.getAllToDos()
         _uiState.update { state ->
             state.copy(toDoEntityList = list)
+        }
+    }
+
+    private suspend fun demoInsert() {
+        val list = todoRepository.getAllToDos()
+        if (list.isEmpty()) {
+            todoRepository.demoInsert()
         }
     }
 }

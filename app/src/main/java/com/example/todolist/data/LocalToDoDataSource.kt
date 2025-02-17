@@ -8,4 +8,5 @@ interface LocalToDoDataSource {
     suspend fun toggleChecked(id: Int)
     suspend fun togglePinned(id: Int)
     suspend fun deleteAllChecked(list: List<ToDoEntity>)
+    suspend fun demoInsert()
 }

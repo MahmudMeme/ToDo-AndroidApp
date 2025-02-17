@@ -16,6 +16,9 @@ class RoomDataSource @Inject constructor(private val toDoDao: ToDoDao) : LocalTo
     }
 
     override suspend fun getAll(): List<ToDoEntity> {
+//        if (toDoDao.getAllToDos().isEmpty()){
+//            demoInsert();
+//        }
         return toDoDao.getAllToDos()
     }
 
@@ -33,5 +36,19 @@ class RoomDataSource @Inject constructor(private val toDoDao: ToDoDao) : LocalTo
                 toDoDao.deleteTodo(todo)
             }
         }
+    }
+
+    override suspend fun demoInsert() {
+        val toDo1= ToDoEntity(0,"you can insert new todo buy clicking on add button below",false,true)
+        val toDo2= ToDoEntity(1,"you can pin a todo by clicking on a todo name")
+        val toDo3= ToDoEntity(3,"you can check a todo by clicking on a check box for every todo")
+        val toDo4= ToDoEntity(4,"checked todo",true)
+        val toDo5= ToDoEntity(5,"you can delete all check todos by clicking on delete all button")
+
+        toDoDao.insertTodo(toDo1)
+        toDoDao.insertTodo(toDo2)
+        toDoDao.insertTodo(toDo3)
+        toDoDao.insertTodo(toDo4)
+        toDoDao.insertTodo(toDo5)
     }
 }

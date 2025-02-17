@@ -33,4 +33,7 @@ class TodoRepository @Inject constructor(
     suspend fun deleteALLChecked(list: List<ToDoEntity>) {
         localToDoDataSource.deleteAllChecked(list)
     }
+    suspend fun demoInsert(){
+        localToDoDataSource.demoInsert()
+    }
 }
